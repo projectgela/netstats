@@ -14,33 +14,33 @@ jobs:
         - docker
       install: skip
       before_script:
-        - docker build -t tomochain/netstats .
+        - docker build -t gela/netstats .
       script:
         - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-        - docker tag tomochain/netstats tomochain/netstats:latest
-        - docker push tomochain/netstats:latest
-        - docker tag tomochain/netstats tomochain/netstats:$TRAVIS_BUILD_ID
-        - docker push tomochain/netstats:$TRAVIS_BUILD_ID
+        - docker tag gela/netstats gela/netstats:latest
+        - docker push gela/netstats:latest
+        - docker tag gela/netstats gela/netstats:$TRAVIS_BUILD_ID
+        - docker push gela/netstats:$TRAVIS_BUILD_ID
 
     - stage: Build and push image (tagged)
       services:
         - docker
       install: skip
       before_script:
-        - docker build -t tomochain/netstats .
+        - docker build -t gela/netstats .
       script:
         - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-        - docker tag tomochain/netstats tomochain/netstats:latest
-        - docker push tomochain/netstats:latest
-        - docker tag tomochain/netstats tomochain/netstats:testnet
-        - docker push tomochain/netstats:testnet
-        - docker tag tomochain/netstats tomochain/netstats:$TRAVIS_TAG
-        - docker push tomochain/netstats:$TRAVIS_TAG
+        - docker tag gela/netstats gela/netstats:latest
+        - docker push gela/netstats:latest
+        - docker tag gela/netstats gela/netstats:testnet
+        - docker push gela/netstats:testnet
+        - docker tag gela/netstats gela/netstats:$TRAVIS_TAG
+        - docker push gela/netstats:$TRAVIS_TAG
 
 stages:
   - name: Lint
   - name: Tests
   - name: Build and push image
-    if: type != pull_request AND branch = master AND tag IS blank AND repo = tomochain/netstats
+    if: type != pull_request AND branch = master AND tag IS blank AND repo = gela/netstats
   - name: Build and push image (tagged)
-    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = tomochain/netstats
+    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = gela/netstats
